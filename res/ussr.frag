@@ -24,39 +24,58 @@ bool PointIsInsideSickle(vec2 p, float radius, float coordX, float coordY)
 
 	float y = p.y - coordY;
 	y *= y;
-	
+		
 
 	return (x + y) <= (radius * radius);
+}
+
+bool PointHeyTolsty(vec2 p)
+{
+	vec2 s0 = vec2(0.85, 1.0f);
+	vec2 s1 = vec2(0.90, 0.8f);
+	vec2 s2 = vec2(1.3f, 0.7f);
+	vec2 s3 = vec2(1.4f, 0.55f);
+	return PointIsOnTheLeft(s0, s1, p) &&
+		   PointIsOnTheLeft(s1, s3, p) &&
+		   PointIsOnTheLeft(s3, s2, p) &&
+		   PointIsOnTheLeft(s2, s0, p);
 }
 
 bool PointIsInsideSickleHandle(vec2 p)
 {
 	vec2 s0 = vec2(0,0.20);
 	vec2 s1 = vec2(0.25,0);
-	vec2 s2 = vec2(0.78,1.1);
-	vec2 s3 = vec2(1,0.9);
+	vec2 s2 = vec2(0.85,1.0);
+	vec2 s3 = vec2(0.90,0.85);
+
+
+	vec2 s4 = vec2(1.1f, 0.7f);
+	vec2 s5 = vec2(1.1f, 0.6f);
 	return PointIsOnTheLeft(s0, s1, p) &&
 		   PointIsOnTheLeft(s1, s3, p) &&
 		   PointIsOnTheLeft(s3, s2, p) &&
-		   PointIsOnTheLeft(s2, s0, p) ;
+		   PointIsOnTheLeft(s2, s0, p) ||
+		   PointIsInsideSickle(p, 0.15f, 0.8f, 0.9f) ||
+		   PointIsInsideSickle(p, 0.2f, 0.2f, 0.2f);
 }
 
-vec2 Stroke5PointStar(const vec2 center, float radius, int vertexIndex)
+vec2 SetStarPosition(const vec2 center, float radius, int vertexIndex)
 {
     float angle = -0.5;
 	float angleShift = 1.85f + STEP * float(vertexIndex);
 	float x = center.x + radius * cos(angle * angleShift);
 	float y = center.y + radius * sin(angle * angleShift);
+	
     return vec2(x, y);
 }
 
 bool PointIsInsideTheHammer(vec2 p)
 {
-	vec2 s0 = vec2(1.04,1.6);
-	vec2 s1 = vec2(1.35,1.35);
-	vec2 s2 = vec2(1.75,2.28);
-	vec2 s3 = vec2(2.05, 2.35);
-	vec2 s4 = vec2(2.23, 2.23);
+	vec2 s0 = vec2(0.95, 2.2);
+	vec2 s1 = vec2(1.2, 1.9);
+	vec2 s2 = vec2(1.5, 2.8);
+	vec2 s3 = vec2(1.8, 2.95);
+	vec2 s4 = vec2(2.2, 2.8);
 	return PointIsOnTheLeft(s0, s1, p) &&
 			PointIsOnTheLeft(s1, s4, p) &&
 			PointIsOnTheLeft(s4, s3, p) &&
@@ -66,10 +85,10 @@ bool PointIsInsideTheHammer(vec2 p)
 
 bool PointIsInsideTheHammerHandle(vec2 p)
 {
-	vec2 s0 = vec2(3.75,0.15);
-	vec2 s1 = vec2(4,0.25);
-	vec2 s2 = vec2(1.65,1.8);
-	vec2 s3 = vec2(1.9,1.9);
+	vec2 s0 = vec2(3.4, 0.2);//
+	vec2 s1 = vec2(3.75, 0.6);
+	vec2 s2 = vec2(1.4, 2.3);
+	vec2 s3 = vec2(1.8, 2.6);
 	
 	return (PointIsOnTheLeft(s0, s1, p) &&
 			PointIsOnTheLeft(s1, s3, p) &&
@@ -88,7 +107,7 @@ bool PointIsInStar(vec2 pos, vec2 starPoints[5], vec2 starPoints2[5], vec2 cente
 
 void main()
 {// 0.93f, 0.1f, 0.14f, 1.f 
-	const vec4 RED_COLOR = vec4( 0.93f, 0.1f, 0.14f, 1.f );
+	const vec4 RED_COLOR = vec4( 1.f, 0.f, 0.f, 0.f );
 	const vec4 YELLOW_COLOR = vec4(1.f, 1.f, 0.1f, 1.f);
 
     vec2 pos = gl_TexCoord[0].xy;
@@ -97,20 +116,21 @@ void main()
     
 	for(int index = 0; index < 5; ++index)
     {
-       starPoints[index] =  Stroke5PointStar(center, 0.4f, index);                                         
+       starPoints[index] =  SetStarPosition(center, 0.4f, index);                                         
     }
 	
 	vec2 starPoints2[5]; 
 	for(int index = 0; index < 5; ++index)
     {
-       starPoints2[index] =  Stroke5PointStar(center, 0.25f, index);                                         
+       starPoints2[index] =  SetStarPosition(center, 0.25f, index);                                         
     }
 
 	if ((!(PointIsInStar(pos, starPoints2, starPoints, center)) && PointIsInStar(pos, starPoints, starPoints2, center)) || 
 		PointIsInsideTheHammer(pos) || 
 		PointIsInsideTheHammerHandle(pos) ||
 		PointIsInsideSickleHandle(pos) || 
-		(!PointIsInsideSickle(pos, 1.3f, 1.78f, 1.95f) && PointIsInsideSickle(pos, 1.4f, 2.f, 1.8f)))
+		PointHeyTolsty(pos) ||
+		(!PointIsInsideSickle(pos, 1.3f, 1.73f, 1.93f) && PointIsInsideSickle(pos, 1.4f, 2.f, 1.8f)))
     {
         gl_FragColor = YELLOW_COLOR;
     }
