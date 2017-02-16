@@ -6,6 +6,13 @@
 #include <boost/optional.hpp>
 #include <set>
 
+const int LEFTWALL = 90;
+const int BOTTOMWALL = -50;
+const int TOPWALL = 100;
+const int RIGHTWALL = -100;
+const int FLOORLIMIT = 3;
+const int ROOFLIMIT = 80;
+
 class CCamera
         : public IInputListener
         , private boost::noncopyable
