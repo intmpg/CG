@@ -1,0 +1,88 @@
+{
+    "objects": [
+        {
+            "model": "interier/floor.dae",
+            "position": [14, 0, 0],
+            "eulerAngles": [0, 0, 0],
+            "size": 10
+        },
+		{
+            "model": "interier/door.dae",
+            "position": [-3, 0, 60],
+            "eulerAngles": [0, 0, 0],
+            "size": 6
+        },
+		{
+            "model": "interier/door.dae",
+            "position": [14, 0, -120],
+            "eulerAngles": [0, 0, 0],
+            "size": 6
+        },
+		{
+            "model": "interier/coffee_table.dae",
+            "position": [0, 0, 0],
+            "eulerAngles": [0, 2, 0],
+            "size": 30
+        },
+		{
+            "model": "interier/lamp.dae",
+            "position": [0, 9, -5],
+            "eulerAngles": [0, 0, 0],
+            "size": 2
+        },
+		{
+            "model": "interier/sortir.dae",
+            "position": [-55, 0, 90],
+            "eulerAngles": [0, 0, 0],
+            "size": 6
+        },
+		{
+            "model": "interier/rakovina.dae",
+            "position": [20, 0, 112],
+            "eulerAngles": [0, 1.48, 0],
+            "size": 6
+        },
+		{
+            "model": "interier/mirror.dae",
+            "position": [17, 20, 116.5],
+            "eulerAngles": [0, 1.48, 0],
+            "size": 6
+        },
+		{
+             "model": "interier/sofa.dae",
+            "position": [-30, 1, 0],
+            "eulerAngles": [0, 0, 0],
+            "size": 11
+        },
+		{
+             "model": "interier/female.dae",
+            "position": [-20, 0, -60],
+            "eulerAngles": [0, 0, 0],
+            "size": 10
+        },
+		{
+             "model": "interier/table.dae",
+            "position": [50, 0, 0],
+            "eulerAngles": [0, 1.48, 0],
+            "size": 8
+        },
+		{
+             "model": "interier/TV.dae",
+            "position": [50, 10, 0],
+            "eulerAngles": [0, 1.48, 0],
+            "size": 2
+        },
+		{
+             "model": "interier/old_audio.dae",
+            "position": [80, 1, -100],
+            "eulerAngles": [0, 30, 0],
+            "size": 17
+        },
+		{
+             "model": "interier/speakers.dae",
+            "position": [50, 4, 35],
+            "eulerAngles": [0, 30, 0],
+            "size": 3
+        }
+    ]
+}
