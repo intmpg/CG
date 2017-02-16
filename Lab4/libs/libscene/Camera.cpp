@@ -106,12 +106,6 @@ void CCamera::Update(float deltaSec)
 	const vec3 right = GetRightDirection(m_up, m_forward);
 	const vec3 orientedDir = right * localDir.x
 		+ m_up * localDir.y + m_forward * localDir.z;
-	const int LEFTWALL = 90;
-	const int BOTTOMWALL = -50;
-	const int TOPWALL = 100;
-	const int RIGHTWALL = -100;
-	const int FLOORLIMIT = 3;
-	const int ROOFLIMIT = 80;
 
 	vec3 last_position = m_position;
 	m_position += m_moveSpeed * deltaSec * orientedDir;
